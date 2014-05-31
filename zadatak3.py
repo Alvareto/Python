@@ -1,6 +1,6 @@
 studenti = {}
 
-# studenti[(JMBAG, (redniBroj, grupa))] = brojBodova
+# studenti[JMBAG] = {ime, prezime, labosi=(redniBroj, grupa, brojBodova)}
 
 labs = {}
 
