@@ -1,9 +1,6 @@
 import re
 import urllib.request
 
-# koristim Visual Studio, pa mi se ne isplati ostvarivati preko argumenata naredbenog retka
-# url = input("Enter the website address\n") or r'https://www.google.com'
-
 def load_url():
 	stranica = urllib.request.urlopen(input("Enter the website address\n"))
 	html = "".join(stranica.read().decode(encoding='UTF-8',errors='ignore'))
