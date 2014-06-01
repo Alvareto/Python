@@ -29,7 +29,7 @@ def find_and_count_hosts(url_list):
 	for url in url_list:
 		# https://www.fer.unizg.hr/predmet/skrjez
 		try:
-			pokusniKunic = str(url).split(r'/')[2]
+			testSubject = str(url).split(r'/')[2] # a little white bunny :)
 		except IndexError:
 			continue
 		host = str(url).split(r'/')[2]
