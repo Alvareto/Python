@@ -6,7 +6,7 @@ def load_url():
 	html = "".join(stranica.read().decode(encoding='UTF-8',errors='ignore'))
 	return html
 
-#html = load_url(url)
+html = load_url()
 
 ##
 # pronaci i izlistati sve linkove na druge stranice
@@ -39,7 +39,7 @@ def find_and_count_hosts(url_list):
 			host_list[host] = 1
 	return host_list
 
-print("Domena\tBroj pojavljivanja\n")
+print("Host\tCount\n")
 print(find_and_count_hosts(find_urls(html)))
 
 ##
