@@ -6,6 +6,20 @@
 # 	Hyp#Q10#Q20#Q30# ... #Q90
 # 	001#1.25#1.75#2.21# ... #21.34
 
+def vratiIndekseZaDanuVelicinuPolja(polje):
+	indeksi = {}
+	for i in range(1, 10):
+		indeksi[i] = int(len(polje) * (i/10))
+	return indeksi
+
+def Hyp(brojevi):
+	lista = []
+	indeksi = vratiIndekseZaDanuVelicinuPolja(brojevi)
+	for i in range(1, 10):
+		indeks = indeksi[i]
+		lista.append(brojevi[indeks])
+	return lista
+
 ulaz = []
 with open('ulaz.txt') as dat:
     ulaz = dat.readlines()
@@ -13,19 +27,5 @@ with open('ulaz.txt') as dat:
 print("Hyp#Q10#Q20#Q30#Q40#Q50#Q60#Q70#Q80#Q90")
 for red in ulaz:
 	brojevi = red.split()
-	brojevi.sort()
-	print("#".join(Hyp(brojevi).values))
-
-def Hyp(brojevi):
-	lista = {}
-	indeksi = vratiIndekseZaDanuVelicinuPolja(brojevi)
-	for i in range(1, 9):
-		indeks = indeksi[i]
-		lista[i] = brojevi[indeks]
-	return lista
-
-def vratiIndekseZaDanuVelicinuPolja(polje):
-	indeksi = {}
-	for i in range(1, 9):
-		indeksi[i] = int(len(polje) * (i/10))
-	return indeksi
+	brojevi.sort(key=float)
+	print("#".join(Hyp(brojevi)))
