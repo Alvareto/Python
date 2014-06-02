@@ -29,7 +29,7 @@ def find_and_count_hosts(url_list):
 	for url in url_list:
 		# https://www.fer.unizg.hr/predmet/skrjez
 		try:
-			testSubject = str(url).split(r'/')[2] # a little white bunny :)
+			pokusniKunic = str(url).split(r'/')[2]
 		except IndexError:
 			continue
 		host = str(url).split(r'/')[2]
@@ -39,16 +39,17 @@ def find_and_count_hosts(url_list):
 			host_list[host] = 1
 	return host_list
 
-print("Host\tCount\n")
+print("Domena\tBroj pojavljivanja\n")
 print(find_and_count_hosts(find_urls(html)))
 
 ##
 # pronaci sve e-mail adrese u toj stranici
 def find_emails(html):
-	# http://incurlybraces.com/python-extract-email-address-regular-expression.html
-	regexp_email = r'''([w-.+]+@w[w-]+.+[w-]+)'''
-	pattern = re.compile(regexp_email)
-	email_list = re.findall(pattern, html)
+	regex_email = r'[^@]+@[^@]+\.[^@]+'
+	pattern = re.compile(regex_email)
+	email_list = []
+	for word in html.split():
+		email_list.extend(re.findall(pattern, word))
 	return email_list
 
 ##
@@ -69,3 +70,9 @@ def list_imgs(html):
 		if m:
 			img_list.append(m.group(1)) # add the sub match
 	return img_list
+
+# http://incurlybraces.com/extract-links-anchors-html-regular-expression-python.html
+#    regexp_link = r'''</?a((s+w+(s*=s*(?:".*?"|'.*?'|[^'">s]+))?)+s*|s*)/?>w+</a>'''
+#    pattern = re.compile(regexp_link)
+# url_list = re.findall(pattern, html)
+# return url_list
