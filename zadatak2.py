@@ -1,11 +1,3 @@
-# Vaš zadatak: Potrebno je napisati skriptu koja ce na temelju ulazne datoteke ( ulaz.txt) generirati
-# tablicu, u kojoj ce pojedini redak odgovarati hipotezi, a u njemu će biti navedene vrijednosti mjere
-# HD za razlicite vrijednosti parametra HD (korak neka bude 10%, odnosno 0.1)
-# Ispis treba biti u sljedecem obliku (prvi zapis u retku je redni broj hipoteze, tj. odgovaraju ćeg retka
-# ulazne datoteke, a prvi redak je zaglavlje tablice):
-# 	Hyp#Q10#Q20#Q30# ... #Q90
-# 	001#1.25#1.75#2.21# ... #21.34
-
 def vratiIndekseZaDanuVelicinuPolja(polje):
 	indeksi = {}
 	for i in range(1, 10):
