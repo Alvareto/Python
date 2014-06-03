@@ -4,9 +4,7 @@ def matInit(i):
 		text = dat.read()
 		text = text.split('\n\n')
 		lines = text[i].split('\n')
-		size = lines[0].split()
-
-		
+		size = lines[0].split()		
 		Matrix['r'] = int(size[0])
 		Matrix['s'] = int(size[1])
 
@@ -19,7 +17,7 @@ def matPrint(mat):
 	output = ''
 	for i in range(1, mat['r'] + 1):
 		for j in range(1, mat['s'] + 1):
-			output += "%9g" % float(mat.get((i, j), 0))
+			output += "%9g" % float(mat.get((i, j), 0)) # fancy output *.*
 		output += '\n'
 	print(output)
 
@@ -39,13 +37,8 @@ def matMult(mat1, mat2):
 mat1 = matInit(0)
 mat2 = matInit(1)
 
-print("1st matrix:")
-matPrint(mat1)
-print("2nd matrix:")
-matPrint(mat2)
-
 if mat1['s'] != mat2['r']:
-	exit("Matrice nisu ulancane!!!")
+	exit("\n\nI can't multiply those two!")
 
 umnozak = matMult(mat1, mat2)
 
