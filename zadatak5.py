@@ -1,4 +1,3 @@
-# Python 3.4
 import sys
 import collections
 
