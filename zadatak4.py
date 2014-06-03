@@ -1,8 +1,14 @@
 import re
 import urllib.request
+import sys
+
+if(len(sys.argv) < 2):
+	arg = input("Enter the website address\n")
+else:
+	arg = sys.argv[1]
 
 def load_url():
-	stranica = urllib.request.urlopen(input("Enter the website address\n"))
+	stranica = urllib.request.urlopen(arg)
 	html = "".join(stranica.read().decode(encoding='UTF-8',errors='ignore'))
 	return html
 
@@ -13,10 +19,13 @@ html = load_url()
 def find_urls(html):
 	url_list = []
 	m = re.findall('href *= *[\'"]([^\'"]+)', html) # find the href
-	if m: url_list.extend(m)
+	if m:
+		for url in m:
+			if url[:1] != "/":
+				url_list.append(url)
 	return url_list
 
-print("All links on page: \n")
+print("\nAll links on page linking to other pages:")
 for url in find_urls(html):
 	print(url)
 
@@ -39,8 +48,10 @@ def find_and_count_hosts(url_list):
 			host_list[host] = 1
 	return host_list
 
-print("Domena\tBroj pojavljivanja\n")
-print(find_and_count_hosts(find_urls(html)))
+print("\n\nDomena\t\tBroj pojavljivanja")
+hosts = find_and_count_hosts(find_urls(html))
+for host in hosts:
+	print(host + "\t" + str(hosts[host]))
 
 ##
 # pronaci sve e-mail adrese u toj stranici
@@ -51,6 +62,14 @@ def find_emails(html):
 	for word in html.split():
 		email_list.extend(re.findall(pattern, word))
 	return email_list
+
+emails = find_emails(html)
+if len(emails) == 0:
+	print("\nThere are no emails found.\n")
+else:
+	print("\nThere are " + str(len(emails)) + " emails found:")
+	for email in emails:
+		print(email)
 
 ##
 # prebrojati linkove na slike (<img src="url" ... >)
@@ -63,6 +82,12 @@ def count_imgs(html):
 			img_count += 1
 	return img_count
 
+images = count_imgs(html)
+if images == 0:
+	print("\nThere are no images found.\n")
+else:
+	print("There are " + str(images) + " images found.")
+
 def list_imgs(html):
 	img_list = []
 	for tag in re.findall('< *img +src[^>]+', html): # find the img tags
@@ -70,9 +95,3 @@ def list_imgs(html):
 		if m:
 			img_list.append(m.group(1)) # add the sub match
 	return img_list
-
-# http://incurlybraces.com/extract-links-anchors-html-regular-expression-python.html
-#    regexp_link = r'''</?a((s+w+(s*=s*(?:".*?"|'.*?'|[^'">s]+))?)+s*|s*)/?>w+</a>'''
-#    pattern = re.compile(regexp_link)
-# url_list = re.findall(pattern, html)
-# return url_list
